@@ -60,8 +60,6 @@ var articles={
      },
 };
          
-
-
 function createTemplate(data){
 var title=data.title;
 var date=data.date;
@@ -96,13 +94,6 @@ var htmlTemplate=`
 `;
 return htmlTemplate;
 }
-var articles={
-    'article-one':{},
-    'article-two':{},
-    'article-three':{}
-};
-function createTemplate(data){}
-
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(_dirname,'ui','index.html'));
