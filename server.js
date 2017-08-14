@@ -5,8 +5,9 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-var articleOne={
-    title:'Article One|Diksha Thakre',
+
+var articles={
+     articleOne:{title:'Article One|Diksha Thakre',
     heading:'Article One',
     date:'August 14,2017',
     content: `
@@ -19,7 +20,48 @@ var articleOne={
     <p>
         This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.This is the content for my first article.
     </p>`
+         
+     },
+     articleTwo:{
+         title:'Article Two|Diksha Thakre',
+    heading:'Article Two',
+    date:'August 14,2017',
+    content: `
+    <p>
+        This is the content for my second article.This is the content for my second article.This is the content for my second article.
+        This is the content for my second article. This is the content for my second article.
+    </p>
+     <p>
+        This is the content for my second article.This is the content for my second article.This is the content for my second article.
+        This is the content for my second article. This is the content for my second article.
+    </p>
+     <p>
+        This is the content for my second article.This is the content for my second article.This is the content for my second article.
+        This is the content for my second article. This is the content for my second article.
+    </p>`
+     },
+     articleThree:{
+         title:'Article Three|Diksha Thakre',
+    heading:'Article Three',
+    date:'August 14,2017',
+    content: `
+     <p>
+        This is the content for my third article.This is the content for my third article.This is the content for my third article.
+        This is the content for my third article.
+    </p>
+    <p>
+        This is the content for my third article.This is the content for my third article.This is the content for my third article.
+        This is the content for my third article.
+    </p>
+    <p>
+        This is the content for my third article.This is the content for my third article.This is the content for my third article.
+        This is the content for my third article.
+    </p>`
+     },
 };
+         
+
+
 function createTemplate(data){
 var title=data.title;
 var date=data.date;
@@ -54,19 +96,25 @@ var htmlTemplate=`
 `;
 return htmlTemplate;
 }
+var articles={
+    'article-one':{},
+    'article-two':{},
+    'article-three':{}
+};
+function createTemplate(data){}
+
+
 app.get('/', function (req, res) {
-  res.send(createTemplate(articleOne));
+  res.sendFile(path.join(_dirname,'ui','index.html'));
 });
 
-app.get('/article-one',function(req,res){
-   res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+app.get('/:articleName',function(req,res){
+    //articleName=articleOne
+    //articles[articleName]=={}content object for article one
+  var articleName=req.parans.article.Name;
+   res.send(createTemplates(articles[articleName]));
 });
-app.get('/article-two',function(req,res){
-   res.sendFile(path.join(__dirname, 'ui', 'article-two.html')); 
-});
-app.get('/article-three',function(req,res){
-   res.sendFile(path.join(__dirname, 'ui', 'article-three.html')); 
-});
+
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
 });
