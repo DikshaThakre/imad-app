@@ -23,8 +23,7 @@ button.onclick=function(){
     request.send(null);
 };
 //submit name
-var nameInput=document.getElementById('name');
-var name=nameInput.value;
+
 var submit=document.getElementById('submit_btn');
 submit.onclick=function(){
    //make request to the server and send the name
@@ -53,6 +52,8 @@ submit.onclick=function(){
         //not done yet
     };
     //make the request
+    var nameInput=document.getElementById('name');
+    var name=nameInput.value;
     request.open('GET', 'http://dthakre1998.imad.hasura-app.io/counter/submit-name?name-' + name, true);
     request.send(null);
    
