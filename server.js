@@ -12,7 +12,7 @@ var config={
 };
 var app = express();
 app.use(morgan('combined'));
-
+-
 function createTemplate(data){
 var title=data.title;
 var date=data.date;
@@ -50,6 +50,17 @@ return htmlTemplate;
 
 app.get('/ui/index.html', function (req, res) {
   res.sendFile(path.join(_dirname,'ui','index.html'));
+});
+
+
+function hash(input){
+    //How do we create a hash?
+    var hashed=crypto.pbkdf2Sync(input,salt,10000,512,'sha512');
+    return hashed.toString('hex');
+}
+app.get('/hash/:input',function(req,res){
+    var hashedString=hash(req.params.input);
+    res.send(hashedString);
 });
 
 var pool=new Pool(config);
