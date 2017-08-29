@@ -1,28 +1,5 @@
-//Counter code
-var button=document.getElementById('counter');
 
-button.onclick=function(){
-    //create the request object
-   
-    var request=new XMLHttpRequest();
-    
-    //Capture the response and store it in a variable
-    request.onreadystatechange=function(){
-      if(request.readyState===XMLHttpRequest.DONE){
-          //take some action
-          if(request.status===200){
-            var counter=request.responseText;
-            var span=document.getElementById('count');
-            span.innerHTML=counter.toString();
-          }
-      }  
-        //not done yet
-    };
-    //make the request
-    request.open('GET', 'http://dthakre1998.imad.hasura-app.io/counter',true);
-    request.send(null);
-};
-//submit name
+//submit username/password to login
 
 var submit=document.getElementById('submit_btn');
 submit.onclick=function(){
@@ -37,24 +14,23 @@ submit.onclick=function(){
           //take some action
           if(request.status===200){
                //capture a list of names and render it as a list.
-            var names=request.responseText;
-            names=JSON.parse(names);
-            var names=['name1','name2','name3','name4'];
-            var list='';
-            for(var i=0; i<names.length; i++){
-            list+='<li>' + names[i] + '<li>';
-       
-   }
-   var ul=document.getElementById('namelist');
-   ul.innerHTML=list;
-          }
-      }  
+           console.log('user logged in');
+           alert('Logged in successfully');
+      }else if(request.status===403){
+          alert('Username/password is incorrect');
+      }else if(request.status===500){
+          alert('Something went wrong on the serer');
+          
+      }
+   }  
         //not done yet
     };
     //make the request
-    var nameInput=document.getElementById('name');
-    var name=nameInput.value;
-    request.open('GET', 'http://dthakre1998.imad.hasura-app.io/counter/submit-name?name-' + name, true);
-    request.send(null);
+    var username=document.getElementById('username').value;
+   var passwordt=document.getElementById('password').value;
+   console.log(username);
+    console.log(password);
+    request.open('POST', 'http://dthakre1998.imad.hasura-app.io/login',true);
+    request.send(JSON.stringify({username:username,password:password}));
    
 };
